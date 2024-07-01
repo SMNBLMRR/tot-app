@@ -3,7 +3,7 @@
 import S from "fluent-json-schema";
 export const userRegisterBody = S.object()
   .additionalProperties(false)
-  .prop("email", S.string().format(S.FORMATS.EMAIL).required())
+  .prop("email", S.string().format("email").required())
   .prop("username", S.string().required());
 
 export const userRegisterResponse = S.object()

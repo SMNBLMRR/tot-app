@@ -21,9 +21,12 @@ export function handleParsingDate(date: string): Date | null {
 }
 
 //check if the specified time is valid for making a reservation
-export function handleDateTime(date: Date) {
+export function handleTime(date: Date) {
   let hours = date.getUTCHours();
-  return hours >= 19 && hours <= 23;
+  let minutes = date.getUTCMinutes();
+  if(hours < 19) return false
+  if(hours >= 23 && minutes >= 1) return false
+  return true;
 }
 
 //logic to check if the number of guests is < 20 for a specific date and time
@@ -32,11 +35,7 @@ export function isValidReservation(
   reservationList: { date: Date; guest: number }[] | [],
   guest: number
 ): boolean {
-  if (!handleDateTime(date)) return false;
-  console.log({ date });
-  let numOfGuest = reservationList.reduce((prev, curr) => {
-    return prev += curr.guest;
-  }, 0);
-
+  if (!handleTime(date)) return false;
+  let numOfGuest = reservationList.reduce((prev, curr) => prev += curr.guest, 0);
   return numOfGuest + guest <= 20;
 }

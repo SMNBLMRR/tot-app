@@ -3,6 +3,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import TotError from "../../errors/customError";
 import { handleParsingDate, isValidReservation } from "./helpers";
 import { ReservationService } from "./reservation.service";
+import { Reservation } from "../../types/reservation";
 function ReeservationController() {
   const reservationService = ReservationService();
 
@@ -28,7 +29,7 @@ function ReeservationController() {
 
       if (!user) return this.httpErrors.notFound("User not found");
 
-      //get a reservation list by passing a pagination and delta date-time (from-to) for 
+      //get a reservation list by passing a pagination and delta date-time (from-to) for
       //a better reservation filtering
       let reservationList = await reservationService.getReservationList(
         user,
@@ -40,7 +41,6 @@ function ReeservationController() {
       if (!reservationList) return [];
 
       return reservationList;
-
     } catch (error) {
       console.error(error);
       return this.httpErrors.badRequest();
@@ -67,7 +67,9 @@ function ReeservationController() {
         return this.httpErrors.badRequest("Invalid Date");
 
       //retrieve reservation list from db
-      let reservationList = await reservationService.reservationCount(dateTime);
+      let reservationList = await reservationService.rangeReservationList(
+        dateTime
+      );
 
       //check if is possible to make another reservation based on user input
       if (!isValidReservation(dateTime, reservationList, guest))

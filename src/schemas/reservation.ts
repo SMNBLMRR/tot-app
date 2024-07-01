@@ -5,15 +5,14 @@ export const userReservation = S.object()
   .prop(
     "date",
     S.string()
-      .format("date")
-      .description(
-        "The date for fetching reservations (e.g., 2024-06-29)"
-      )
+      .format("date-time")
+      .description("The date for fetching reservations (e.g., 2024-06-29)")
   )
-  .prop("user", S.object()
-  .prop("email", S.string()))
+  .prop("guest", S.number())
 
-export const userReservationList = S.array().items(userReservation);
+export const userReservationList = S.array()
+  .items(userReservation)
+  .description("User reservation list");
 
 export const userReservationBody = S.object()
   .additionalProperties(false)
@@ -57,7 +56,8 @@ export const userReservationQueryString = S.object()
 
 export const userReservationParams = S.object().prop(
   "user",
-  S.string().description(
-    "This should be the user email (e.g., user@example.it)"
-  ).title("email").required()
+  S.string()
+    .description("This should be the user email (e.g., user@example.it)")
+    .title("email")
+    .required()
 );

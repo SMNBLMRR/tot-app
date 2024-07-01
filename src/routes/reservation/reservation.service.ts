@@ -16,7 +16,7 @@ export interface ReservationServiceInterface {
     person: number,
     date: Date
   ) => Promise<Reservation>;
-  reservationCount: (
+  rangeReservationList: (
     date: Date
   ) => Promise<{ date: Date; guest: number }[] | []>;
 }
@@ -84,7 +84,7 @@ function ReservationService(): ReservationServiceInterface {
   //retrieve all reservations made within a specific time range
   //to avoid overlapping reservations, the reservation duration is one hour
   //therefore, retrieve all reservations that are within 1 hour before and 1 hour after the current reservation time
-  async function reservationCount(
+  async function rangeReservationList(
     date: Date
   ): Promise<{ date: Date; guest: number }[] | []> {
     let startDate = new Date(date);
@@ -92,8 +92,6 @@ function ReservationService(): ReservationServiceInterface {
 
     let endDate = new Date(date);
     endDate.setHours(endDate.getHours() + 1);
-
-    console.log({ endDate, startDate });
 
     try {
       return await prisma.reservation.findMany({
@@ -117,7 +115,7 @@ function ReservationService(): ReservationServiceInterface {
   return {
     getReservationList,
     createReservation,
-    reservationCount,
+    rangeReservationList,
   };
 }
 
