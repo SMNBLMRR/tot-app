@@ -9,6 +9,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
+      TZ: Europe/Rome
       POSTGRES_DB: tot
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -30,6 +31,7 @@ services:
       postgres:
         condition: service_healthy
     environment:
+      TZ: Europe/Rome
       PORT: 3000
       DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/tot?schema=public"
 

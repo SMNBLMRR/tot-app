@@ -3,7 +3,6 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import TotError from "../../errors/customError";
 import { handleParsingDate, isValidReservation } from "./helpers";
 import { ReservationService } from "./reservation.service";
-import { Reservation } from "../../types/reservation";
 function ReeservationController() {
   const reservationService = ReservationService();
 

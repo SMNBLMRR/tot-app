@@ -1,5 +1,6 @@
 
 FROM node:20-alpine as base
+ENV TZ=Europe/Rome
 WORKDIR /app
 
 FROM base as build
