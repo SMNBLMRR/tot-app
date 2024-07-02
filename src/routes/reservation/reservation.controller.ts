@@ -29,8 +29,8 @@ function ReeservationController() {
 
       if (!user) return this.httpErrors.notFound("User not found");
 
-      //get a reservation list by passing a pagination and delta date-time (from-to) for
-      //a better reservation filtering
+      //retrieve a list of reservations by specifying pagination and a date-time range (from-to)
+      //for more effective reservation filtering
       let reservationList = await reservationService.getReservationList(
         user,
         from,
@@ -56,7 +56,7 @@ function ReeservationController() {
     try {
       const { email, guest, date, time } = req.body;
 
-      //date and time handling for saving to the database in DateTime format
+      //handling date and time to save to the database in DateTime format
       const dateTimeString = `${date}T${time}:00`;
 
       //parsing date e.g. (2024-07-02T00:30:00.000Z)
@@ -71,7 +71,7 @@ function ReeservationController() {
         dateTime
       );
 
-      //check if is possible to make another reservation based on user input
+      //check if it's possible to make another reservation based on user input
       if (!isValidReservation(dateTime, reservationList, guest))
         throw new TotError("No reservation available");
 

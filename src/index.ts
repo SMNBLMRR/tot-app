@@ -25,7 +25,7 @@ async function buildServer() {
 async function start() {
   try {
     const server = await buildServer();
-    //host 0.0.0.0 this will work for docker container
+    //host 0.0.0.0 this will work well with docker container
     server?.listen({
       port,
       host: "0.0.0.0",

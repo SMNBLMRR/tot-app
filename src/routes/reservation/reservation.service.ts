@@ -22,7 +22,7 @@ export interface ReservationServiceInterface {
 }
 
 //handle reservation list, we shoul be able to do a pagination and
-//specif range date
+//fetch the existing reservation given a date range
 function ReservationService(): ReservationServiceInterface {
   const userService = UserService();
 
